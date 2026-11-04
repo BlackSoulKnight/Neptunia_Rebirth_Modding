@@ -1,0 +1,21 @@
+{
+  "ModId": "Neptunia_DataStructs",
+  "ModName": "Neptunia Rebirth Data Strucs",
+  "ModAuthor": "BlackSoulKnight",
+  "ModVersion": "0.0.1",
+  "ModDescription": "Contains all structions Neptuina Rebirth uses",
+  "ModDll": "Neptunia_Modding.dll",
+  "ModIcon": "Preview.png",
+  "ModR2RManagedDll32": "x86/Neptunia_DataStructs.dll",
+  "ModR2RManagedDll64": "x64/Neptunia_DataStructs.dll",
+  "ModNativeDll32": "",
+  "ModNativeDll64": "",
+  "IsLibrary": false,
+  "ReleaseMetadataFileName": "Neptunia_DataStructs.ReleaseMetadata.json",
+  "PluginData": {},
+  "IsUniversalMod": false,
+  "ModDependencies": [ "reloaded.sharedlib.hooks" ],
+  "OptionalDependencies": [],
+  "SupportedAppId": [ "neptuniarebirth2.exe" ],
+  "ProjectUrl": ""
+}
