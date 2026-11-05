@@ -151,6 +151,7 @@ namespace Neptunia_Modding.Modding.SaveFile
         }
         public static void LoadFromFile(int saveFile)
         {
+            InitSaveGame();
             var path = CustomSaveFile.Path;
             string filePath = $"\\Dungeons\\Test_{saveFile}.sav";
             if (!File.Exists(path + filePath)) return;
