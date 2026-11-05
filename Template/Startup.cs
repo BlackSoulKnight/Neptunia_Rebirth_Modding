@@ -7,7 +7,7 @@ using Reloaded.Hooks.ReloadedII.Interfaces;
 using Reloaded.Mod.Interfaces;
 using Reloaded.Mod.Interfaces.Internal;
 
-namespace Neptunia_DataStructs.Template
+namespace Neptunia_Modding.Template
 {
     public class Startup : IMod
     {

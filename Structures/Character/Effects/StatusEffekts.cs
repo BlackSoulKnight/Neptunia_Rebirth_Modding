@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace Neptunia_DataStructs.Structures.Character.Effects
+namespace Neptunia_Modding.Structures.Character.Effects
 {
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct StatusEffekt

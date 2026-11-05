@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 
 
-namespace Neptunia_DataStructs.Structures.Database.Dungeon
+namespace Neptunia_Modding.Structures.Database.Dungeon
 {
 
     [StructLayout(LayoutKind.Sequential)]

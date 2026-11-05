@@ -1,9 +1,9 @@
-﻿using Neptunia_DataStructs.Structures.Character.Attacks;
-using Neptunia_DataStructs.Structures.Character.Effects;
+﻿using Neptunia_Modding.Structures.Character.Attacks;
+using Neptunia_Modding.Structures.Character.Effects;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace Neptunia_DataStructs.Structures.SaveFile
+namespace Neptunia_Modding.Structures.SaveFile
 {
 
 
@@ -16,6 +16,7 @@ namespace Neptunia_DataStructs.Structures.SaveFile
         [FieldOffset(0x4)] public ushort SubWorld;
         [FieldOffset(0xA)] public ushort GatherSpotCollectedBitfield;
         [FieldOffset(0xC)] public ushort EnemyAliveBitfield;
+        [FieldOffset(0x203b)] public byte lastbyte;
 
     }
 }

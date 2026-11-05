@@ -1,5 +1,5 @@
 ﻿
-namespace Neptunia_DataStructs.Template
+namespace Neptunia_Modding.Template
 {
     /// <summary>
     /// Base class for implementing mod functionality.

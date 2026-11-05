@@ -1,38 +1,56 @@
-﻿
-using Neptunia_DataStructs.Structures.Database.Dungeon;
-using Neptunia_DataStructs.Structures.SaveFile;
-using System.Runtime.InteropServices;
+﻿using Neptunia_Modding.Structures.Database.Dungeon;
+using Neptunia_Modding.Structures.SaveFile;
+using Neptunia_Modding.Test;
 using Reloaded.Memory;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using static Neptunia_Modding.Modding.Hooks.DungeonHooks;
 
-namespace Neptunia_DataStructs.Modding.SaveFile
+namespace Neptunia_Modding.Modding.SaveFile
 {
 
     public static unsafe class Dungeons
     {
-        public static DungeonSave*[] DungeonSaveList = new DungeonSave*[100];
-        public static int MaxDungeon;
-        public static MemDataBaseCore* MemDataBaseCore => GetBaseCore();
 
-        static MemDataBaseCore* GetBaseCore()
+        public const int DungeonListArraySize = 100;
+        public static Dungeon** DungeonList = (Dungeon**)Marshal.AllocHGlobal(sizeof(Dungeon*) * DungeonListArraySize);
+        static MemDataBaseCore* MemDataBaseCore => Globals.MemDataBaseCore;
+
+        static Dungeons()
         {
-            return (MemDataBaseCore*)Memory.Instance.Read<nuint>(Mod.ModuleBase + 0x443310);
+
         }
-        public static DungeonSave* GetDungeonSave(ushort dungeonID)
+        
+
+        public static void DungeonInit()
         {
-            for (int i = 0; i < DungeonSaveList.Length; i++)
+            if (MemDataBaseCore->DungeonDBArraySize != 0)
             {
-                if (DungeonSaveList[i] == null)
-                    return null;
-                if (DungeonSaveList[i]->DungeonID == dungeonID)
-                        return DungeonSaveList[i];
+                int i = 0;
+                for (; i < MemDataBaseCore->DungeonDBArraySize; i++)
+                {
+                    DungeonList[i] = MemDataBaseCore->DungeonDBArray[i];
+                }
+                MemDataBaseCore->DungeonDBArray = DungeonList;
+                DungeonList[i] = NewDungeonTest.GetTestDungeon();
             }
-            return null;
         }
-        public static bool IsDungeonSaveInList(ushort dungeonID) => GetDungeonSave(dungeonID) != null;
+        public static void CreateDungeon(Dungeon* dungeonData) {
+            //Dungeon* newDungeon = (Dungeon*)Marshal.AllocHGlobal(sizeof(Dungeon));
+            //int size = sizeof(Dungeon);
+            var newDungeon = dungeonData;
+            //Buffer.MemoryCopy(&dungeonData, newDungeon,size,size);
+            for (int i = 0; i < MemDataBaseCore->DungeonDBArraySize; i++)
+                if (DungeonList[i] == newDungeon) return;
+            DungeonList[MemDataBaseCore->DungeonDBArraySize] = newDungeon;
+            Console.WriteLine(((nuint)newDungeon).ToString("X"));
+            MemDataBaseCore->DungeonDBArraySize++;
+        }
 
         public static Dungeon* GetDungeon(ushort dungeonID)
         {
+            if (DungeonList[0] == null)
+                DungeonInit();
             for (int i = 0; i < MemDataBaseCore->DungeonDBArraySize; i++)
             {
                 Dungeon* entry = MemDataBaseCore->DungeonDBArray[i];
@@ -41,38 +59,7 @@ namespace Neptunia_DataStructs.Modding.SaveFile
             }
             return null;
         }
-        public static bool AddDungeonSave(Dungeon* dungeon,bool flag)
-        {
-            if (dungeon == null || IsDungeonSaveInList(dungeon->DungeonID))
-                return false;
 
-            return true;
-        }
-        public static DungeonSave* CreateDungeonSave(ushort dungeonID)
-        {
-            if (dungeonID == 99)
-                dungeonID = 0xc9;
-            DungeonSave* result = GetDungeonSave(dungeonID);
-            if (result != null) return result;
-            Dungeon* dungeonDBEntry = GetDungeon(dungeonID);
-            if (dungeonDBEntry == null) return null;
-
-            result = (DungeonSave*)Marshal.AllocHGlobal(sizeof(DungeonSave));
-            DungeonSaveList[MaxDungeon] = result;
-            result->DungeonID = dungeonID;
-            result->SubWorld = dungeonDBEntry->World[2];
-            MaxDungeon++;
-            return result;
-        }
-        public static DungeonSave* GetDungeonSaveOrCreateNew(ushort dungeonID)
-        {
-            DungeonSave * result = GetDungeonSave(dungeonID);
-
-            if (result == null)
-                result = CreateDungeonSave(dungeonID);
-
-            return result;
-        }
 
 
 

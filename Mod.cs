@@ -1,14 +1,15 @@
-﻿using Neptunia_DataStructs.Modding.SaveFile;
-using Neptunia_DataStructs.Template;
+﻿using Neptunia_Modding.Template;
 using Reloaded.Hooks.ReloadedII.Interfaces;
 using Reloaded.Mod.Interfaces;
+using Neptunia_Modding.Modding.Hooks;
+
 
 #if DEBUG
 using System.Diagnostics;
 using System.Reflection;
 #endif
 
-namespace Neptunia_DataStructs
+namespace Neptunia_Modding
 {
     /// <summary>
     /// Your mod logic goes here.
@@ -59,7 +60,7 @@ namespace Neptunia_DataStructs
             ModuleBase = (UIntPtr)Module.BaseAddress;
 
             DungeonHooks.SetupHooks(_hooks);
-
+            SaveGameHooks.SetupHooks(_hooks);
         }
 
 

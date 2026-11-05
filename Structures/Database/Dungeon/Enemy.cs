@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptunia_DataStructs.Structures.Database.Dungeon
+namespace Neptunia_Modding.Structures.Database.Dungeon
 {
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct EnemyOverworldAI
