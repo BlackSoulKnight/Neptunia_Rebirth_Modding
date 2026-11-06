@@ -11,8 +11,8 @@ namespace Neptunia_Modding.Structures.Database.Dungeon
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct EnemyOverworldAI
     {
-        public float DetectionCone;
         public float DetectionRange;
+        public float DetectionCone;
         public uint MinWaitTime;
         public uint MaxWaitTime;
         public uint MinWalkDistance;

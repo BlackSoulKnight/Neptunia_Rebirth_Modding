@@ -34,10 +34,6 @@ namespace Neptunia_Modding.Structures.Database.Dungeon
         [FieldOffset(0x1C)] public ushort ScoutDays;
         [FieldOffset(0x1E)] public ushort ScoutTimout;
         [FieldOffset(0x20)] public ushort ScoutDuration;
-        //[FieldOffset(0x1E)] public ushort DungeonLayout;
-        //[FieldOffset(0x20)] public ushort DungeonLayoutVariant;
-        //[FieldOffset(0x1E)] public int ;
-        //[FieldOffset(0x20)] public int ;
         [FieldOffset(0x22)] public fixed ushort HERB[9]; //unkown
         [FieldOffset(0x34)] public fixed int TreasureIds[10]; //something about event flags
         [FieldOffset(0x5C)] public HiddenTreasure HiddenTreasure;
@@ -47,11 +43,11 @@ namespace Neptunia_Modding.Structures.Database.Dungeon
         [FieldOffset(0x145C)] public GatherSpots Gather1;
         [FieldOffset(0x1768)] public GatherSpots Gather2;
         [FieldOffset(0x1a74)] public GatherSpots Gather3;
-        //[FieldOffset(0x1d80)] public int ;
-        //[FieldOffset(0x1d84)] public int ;
-        //[FieldOffset(0x1d88)] public int ;
-        //[FieldOffset(0x1d8C)] public int ;
-        //[FieldOffset(0x1d90)] public int ;
+        [FieldOffset(0x1d80)] public int NextDungeon1;
+        [FieldOffset(0x1d84)] public int NextDungeon2;
+        [FieldOffset(0x1d88)] public int NextDungeon3;
+        [FieldOffset(0x1d8C)] public int NextDungeon4;
+        [FieldOffset(0x1d90)] public int NextDungeon5;
 
     }
 }
