@@ -66,18 +66,10 @@ namespace Neptunia_Modding.Modding.Hooks
         }
 
         [Function(CallingConventions.Stdcall)]
-        public delegate int OnCountDungeonOnMap(uint subworld);
+        public delegate int OnCountDungeonOnMap(int subworld);
         //55 8B EC 8B 0D ?? ?? ?? ?? 33 D2 57 69 81 ?? ?? ?? ?? 3C 20 00 00
-        public static int CountDungeonOnMap(uint subworld) {
-            int result = 0;
-            for (int i = 0; i < Dungeons.DungeonListArraySize; i++)
-            {
-                var dungeon = DungeonSaveManager.DungeonSaveList[i];
-                if (dungeon == null) continue;
-                if (((short)dungeon->StatusBitfield & 2) != 0 && (dungeon->SubWorld == subworld || subworld == 0))
-                    result++;
-            }
-            return result;
+        public static int CountDungeonOnMap(int subworld) {
+            return DungeonSaveManager.GetDungeonCountOnMap(subworld);
         }
 
 
@@ -87,32 +79,7 @@ namespace Neptunia_Modding.Modding.Hooks
         //55 8B EC 83 EC 08 53 8B 1D ?? ?? ?? ?? 56 69 83 ?? ?? ?? ?? 3C 20 00 00
         public static int PlaceDungeonOnMap(uint subworld,nuint par2,uint maxCount)
         {
-            Console.WriteLine($"Something pointer {par2.ToString("X")}");
-            int result = 0;
-            for (int i = 0; i < Dungeons.DungeonListArraySize; i++)
-            {
-                var dungeon = DungeonSaveManager.DungeonSaveList[i];
-                if (dungeon == null) continue;
-
-                if (((short)dungeon->StatusBitfield & 2) != 0 && (dungeon->SubWorld == subworld || subworld == 0))
-                {
-                    var id = dungeon->DungeonID;
-                    if (id == 99)
-                        id = 0xc9;
-                    //checkDungeonDB
-                    Dungeon* dun = Dungeons.GetDungeon(id);
-                    if (dun != null)
-                    {
-                        result++;
-                        if (maxCount < result) return result;
-                        //var ptr = Memory.Instance.Read<nuint>(par2);
-                        Memory.Instance.Write(par2,(nuint)dun);
-                        par2 += 4;
-                    }
-
-                }
-            }
-            return result;
+            return DungeonSaveManager.PlaceDungeonOnMap(subworld,par2, maxCount);
         }
 
         [Function(CallingConventions.Stdcall)]

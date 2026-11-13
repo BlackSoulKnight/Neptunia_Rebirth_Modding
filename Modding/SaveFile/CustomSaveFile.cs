@@ -10,7 +10,6 @@ namespace Neptunia_Modding.Modding.SaveFile
     public static unsafe class CustomSaveFile
     {
         public static string Path => Directory.GetCurrentDirectory()+ "\\Modding";
-        public static DungeonSave*[] DungeonSaveList => DungeonSaveManager.DungeonSaveList;
 
         public delegate void SaveGame(int saveFile);
         public delegate void InitSaveGame();

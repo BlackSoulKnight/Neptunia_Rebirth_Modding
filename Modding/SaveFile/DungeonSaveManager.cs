@@ -1,5 +1,7 @@
 ﻿using Neptunia_Modding.Structures.Database.Dungeon;
 using Neptunia_Modding.Structures.SaveFile;
+using Reloaded.Hooks.Definitions.Structs;
+using Reloaded.Memory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,20 +13,17 @@ namespace Neptunia_Modding.Modding.SaveFile
 {
     public static unsafe class DungeonSaveManager
     {
-        public static DungeonSave*[] DungeonSaveList;
+        //private static DungeonSave*[] DungeonSaveList;
+        //private static Dictionary<int,IntPtr> Saves = new();
+        private static ObjectDictonary<int,DungeonSave> Saves = new();
+
         public static readonly int DungeonSaveSize = sizeof(DungeonSave);
         static int DungeonListArraySize => Dungeons.DungeonListArraySize;
         public static readonly DungeonSave DefaultDungeonSave = new();
-        static MemDataBaseCore* MemDataBaseCore => Globals.MemDataBaseCore;
+        static MemDataBaseCore* MemDataBaseCore => Util.MemDataBaseCore;
         static DungeonSaveManager()
         {
             var saves = new DungeonSave*[DungeonListArraySize];
-            for (int i = 0; i < DungeonListArraySize; i++)
-            {
-                saves[i] = GetDefaultDungeonSave();
-            }
-            DungeonSaveList = saves;
-
         }
         public static void OnSaveGame()
         {
@@ -33,15 +32,21 @@ namespace Neptunia_Modding.Modding.SaveFile
             CustomSaveFile.OnInitGame += InitSaveGame;
         }
 
+        public static DungeonSave* GetDungeonSave(ushort dungeonID)
+        {
+            if(!Saves.ContainsKey(dungeonID))
+                return null;
+            return Saves[dungeonID];
+        }
+
         public static void ResetDungeonEntities()
         {
-            for (int i = 0; i < DungeonListArraySize; i++)
+            foreach(IntPtr dungeon in Saves.Values)
             {
-                var dungeon = DungeonSaveList[i];
-                if (dungeon == null) break;
-                dungeon->GatherSpotCollectedBitfield = 0;
-                dungeon->EnemyAliveBitfield = 0;
-                dungeon->StatusBitfield &= 0xffef;
+                var save = (DungeonSave*)dungeon;
+                save->GatherSpotCollectedBitfield = 0;
+                save->EnemyAliveBitfield = 0;
+                save->StatusBitfield &= 0xffef;
             }
         }
         public static bool IsDungeonSaveInList(ushort dungeonID) => GetDungeonSave(dungeonID) != null;
@@ -56,48 +61,26 @@ namespace Neptunia_Modding.Modding.SaveFile
         {
             if (dungeonID == 99)
                 dungeonID = 0xc9;
-            DungeonSave* result = GetDungeonSave(dungeonID);
-            if (result != null) return result;
+            var result = GetDungeonSave(dungeonID);
+            if (  result != null) return result;
+
             Dungeon* dungeonDBEntry = Dungeons.GetDungeon(dungeonID);
             if (dungeonDBEntry == null) return null;
 
-            result = GetDefaultDungeonSave();
-            int i = 0;
-            for(; i < DungeonListArraySize; i++)
-            {
-                if (DungeonSaveList[i]->DungeonID == 0) break;
-            }
-            DungeonSaveList[i] = result;
+            result = Saves.CreateDefault(dungeonID);
             result->DungeonID = dungeonID;
             result->SubWorld = dungeonDBEntry->SubWorld;
             return result;
         }
+
         public static DungeonSave* GetDungeonSaveOrCreateNew(ushort dungeonID)
         {
-            DungeonSave* result = GetDungeonSave(dungeonID);
-
-            if (result == null)
-                result = CreateDungeonSave(dungeonID);
-
-            return result;
-        }
-        public static DungeonSave* GetDungeonSave(ushort dungeonID)
-        {
-            for (int i = 0; i < MemDataBaseCore->DungeonSaveArraySize; i++)
-            {
-                if (DungeonSaveList[i] == null) continue;
-                if (DungeonSaveList[i]->DungeonID == dungeonID)
-                    return DungeonSaveList[i];
-            }
-            return null;
+            DungeonSave* result;
+            return (result = GetDungeonSave(dungeonID))!=null ? result : CreateDungeonSave(dungeonID);
         }
         public static bool ValidateDungeon(int dungeonId, int subworld)
         {
-            for (int i = 0; i < DungeonListArraySize; i++)
-            {
-                var dungeon = DungeonSaveList[i];
-                if (dungeon == null) break;
-
+            foreach(var dungeon in Saves.Values) {
                 if (((short)dungeon->StatusBitfield & 2) != 0 && dungeon->SubWorld == subworld)
                 {
                     //if DungeonFile exist with ID dungeonID
@@ -132,20 +115,55 @@ namespace Neptunia_Modding.Modding.SaveFile
             AddStellaDungeon(dungeon);
             return true;
         }
+        public static int GetDungeonCountOnMap(int subworld)
+        {
+            int result = 0;
+            foreach(var dungeon in Saves.Values)
+            {
+                if (((short)dungeon->StatusBitfield & 2) != 0 && (dungeon->SubWorld == subworld || subworld == 0))
+                    result++;
+            }
+            return result;
+        }
+        public static int PlaceDungeonOnMap(uint subworld, nuint par2, uint maxCount)
+        {
+            Console.WriteLine($"Something pointer {par2.ToString("X")}");
+            int result = 0;
+
+            foreach (var dungeon in Saves.Values)
+            {
+                if (((short)dungeon->StatusBitfield & 2) != 0 && (dungeon->SubWorld == subworld || subworld == 0))
+                {
+                    var id = dungeon->DungeonID;
+                    if (id == 99)
+                        id = 0xc9;
+                    //checkDungeonDB
+                    Dungeon* dun = Dungeons.GetDungeon(id);
+                    if (dun != null)
+                    {
+                        result++;
+                        if (maxCount < result) return result;
+                        //var ptr = Memory.Instance.Read<nuint>(par2);
+                        Memory.Instance.Write(par2, (nuint)dun);
+                        par2 += 4;
+                    }
+
+                }
+            }
+            return result;
+        }
         public static void SaveToFile(int saveFile)
         {
             var path = CustomSaveFile.Path;
             string filePath = $"\\Dungeons\\Test_{saveFile}.sav";
             var file = File.Create(path + filePath);
-            for (int i = 0; i < Dungeons.DungeonListArraySize; i++)
+            foreach(var dungeon in Saves.Values)
             {
-                var entry = DungeonSaveList[i];
                 var buffer = new byte[Marshal.SizeOf(typeof(DungeonSave))];
                 fixed (void* d = &buffer[0])
-                {
-                    Buffer.MemoryCopy(entry, d, buffer.Length, buffer.Length);
-                }
+                    Util.CopyStruct(dungeon,(DungeonSave*)d);
                 file.Write(buffer);
+
             }
             file.Close();
         }
@@ -158,26 +176,23 @@ namespace Neptunia_Modding.Modding.SaveFile
             var file = File.ReadAllBytes(path + filePath);
             int index = 0;
             var size = sizeof(DungeonSave);
-            while (size * index + size < file.Length)
+            while (size * index + size <= file.Length)
             {
                 ReadOnlySpan<byte> entry = new Span<byte>(file, index * size, size);
                 var buffer = entry.ToArray();
-                DungeonSave* save = DungeonSaveList[index];
-                fixed (byte* ptr = buffer)
+                fixed (void* ptr = buffer)
                 {
-                    Buffer.MemoryCopy(ptr, save, size, size);
+                    var dungeon = (DungeonSave*) ptr;
+                    var save = Saves.CreateDefault(dungeon->DungeonID);
+                    Util.CopyStruct((DungeonSave*)ptr, save);
                 }
-                DungeonSaveList[index] = save;
                 index++;
             }
         }
         public static void InitSaveGame()
         {
-            var s = new DungeonSave();
-            for(int i = 0; i< DungeonListArraySize; i++)
-            {
-                Buffer.MemoryCopy(&s, DungeonSaveList[i], DungeonSaveSize, DungeonSaveSize);
-            }
+            Saves.Clear();
+
         }
 
     }

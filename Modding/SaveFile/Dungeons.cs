@@ -14,7 +14,7 @@ namespace Neptunia_Modding.Modding.SaveFile
 
         public const int DungeonListArraySize = 100;
         public static Dungeon** DungeonList = (Dungeon**)Marshal.AllocHGlobal(sizeof(Dungeon*) * DungeonListArraySize);
-        static MemDataBaseCore* MemDataBaseCore => Globals.MemDataBaseCore;
+        static MemDataBaseCore* MemDataBaseCore => Util.MemDataBaseCore;
 
         static Dungeons()
         {
