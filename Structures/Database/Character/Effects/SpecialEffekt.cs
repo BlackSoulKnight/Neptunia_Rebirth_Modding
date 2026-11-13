@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptunia_Modding.Structures.Character.Attacks
+namespace Neptunia_Modding.Structures.Database.Character.Effects
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct ComboRow
+    public struct SpecialEffekt
+
     {
-        public unsafe ComboAttack Rush;
-        public unsafe ComboAttack Break;
-        public unsafe ComboAttack Power;
+        public unsafe ushort Effekt;
+        public unsafe short Value;
     }
 }

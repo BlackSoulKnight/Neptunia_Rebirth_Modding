@@ -1,9 +1,9 @@
-﻿using Neptunia_Modding.Structures.Character.Attacks;
-using Neptunia_Modding.Structures.Character.Effects;
+﻿using Neptunia_Modding.Structures.Database.Character.Attacks;
+using Neptunia_Modding.Structures.Database.Character.Effects;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace Neptunia_Modding.Structures.Character
+namespace Neptunia_Modding.Structures.Database.Character
 {
     [StructLayout(LayoutKind.Explicit)]
     public unsafe struct RB2CharacterStruct

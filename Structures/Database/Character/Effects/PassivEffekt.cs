@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace Neptunia_Modding.Structures.Character.Effects
+namespace Neptunia_Modding.Structures.Database.Character.Effects
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct PassiveEffekt

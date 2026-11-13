@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace Neptunia_Modding.Structures.Character
+namespace Neptunia_Modding.Structures.Database.Character
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct CurrentStats

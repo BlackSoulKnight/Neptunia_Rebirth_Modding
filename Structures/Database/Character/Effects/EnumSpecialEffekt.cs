@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptunia_Modding.Structures.Character.Effects
+namespace Neptunia_Modding.Structures.Database.Character.Effects
 {
     public enum EnumSpecialEffekt
     {

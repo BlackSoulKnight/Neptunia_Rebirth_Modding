@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptunia_Modding.Structures.Character.Attacks
+namespace Neptunia_Modding.Structures.Database.Character.Attacks
 {
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct Attack
