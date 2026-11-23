@@ -61,4 +61,42 @@ namespace Neptunia_Modding.Modding
             return result;
         }
     }
+
+    internal unsafe class ObjectList<ObjectType> where ObjectType : struct
+    {
+        readonly List<IntPtr> list = new();
+
+        static readonly ObjectType DefaultValue = new ObjectType();
+
+        static readonly int ObjectSize = sizeof(ObjectType);
+        public ObjectType*[] Values => _values();
+
+        public ObjectType* GetValue(int index)
+        {
+            return index < list.Count ? (ObjectType*)list[index] : null;
+        }
+        public ObjectType* this[int index]
+        {
+            get => GetValue(index);
+            set => AddValue(value);
+        }
+        public void AddValue(ObjectType* value)
+        {
+            list.Add((IntPtr)value);
+        }
+        public void Clear()
+        {
+            foreach (var values in list)
+                Marshal.FreeHGlobal(values);
+            list.Clear();
+        }
+
+        ObjectType*[] _values()
+        {
+            var result = new ObjectType*[list.Count];
+            for (int i = 0; i < list.Count; i++)
+                result[i] = (ObjectType*)list[i];
+            return result;
+        }
+    }
 }

@@ -1,10 +1,9 @@
-﻿using Neptunia_Modding.Structures.Database.Dungeon;
+﻿using Neptunia_Modding.Modding.CustomContent;
+using Neptunia_Modding.Structures.Database.Dungeon;
 using Neptunia_Modding.Structures.SaveFile;
 using Neptunia_Modding.Test;
-using Reloaded.Memory;
-using System.Runtime.CompilerServices;
+using Reloaded.Hooks.Definitions.Structs;
 using System.Runtime.InteropServices;
-using static Neptunia_Modding.Modding.Hooks.DungeonHooks;
 
 namespace Neptunia_Modding.Modding.SaveFile
 {
@@ -12,19 +11,21 @@ namespace Neptunia_Modding.Modding.SaveFile
     public static unsafe class Dungeons
     {
 
-        public const int DungeonListArraySize = 100;
+        public static int DungeonListArraySize { get; private set; } = 100; 
         public static Dungeon** DungeonList = (Dungeon**)Marshal.AllocHGlobal(sizeof(Dungeon*) * DungeonListArraySize);
         static MemDataBaseCore* MemDataBaseCore => Util.MemDataBaseCore;
+        static int CurrentSize => MemDataBaseCore->DungeonDBArraySize;
+        internal readonly static ObjectDictonary<int, byte> NameList = new();
+        public static event AdditionalContent.LoadFiles OnLoadDungeons;
 
         static Dungeons()
         {
 
         }
         
-
         public static void DungeonInit()
         {
-            if (MemDataBaseCore->DungeonDBArraySize != 0)
+            if (CurrentSize != 0)
             {
                 int i = 0;
                 for (; i < MemDataBaseCore->DungeonDBArraySize; i++)
@@ -32,16 +33,37 @@ namespace Neptunia_Modding.Modding.SaveFile
                     DungeonList[i] = MemDataBaseCore->DungeonDBArray[i];
                 }
                 MemDataBaseCore->DungeonDBArray = DungeonList;
-                DungeonList[i] = NewDungeonTest.GetTestDungeon();
+                OnLoadDungeons?.Invoke();
             }
         }
+
+        static void IncreaseListCapacity()
+        {
+            DungeonListArraySize *= 2;
+            Dungeon** newList = (Dungeon**)Marshal.AllocHGlobal(sizeof(Dungeon*) * DungeonListArraySize);
+            for (int i = 0; i < CurrentSize; i++)
+            {
+                newList[i] = DungeonList[i];
+            }
+            Marshal.FreeHGlobal((nint)DungeonList);
+            DungeonList = newList;
+        }
+
         public static void CreateDungeon(Dungeon* dungeonData) {
-            //Dungeon* newDungeon = (Dungeon*)Marshal.AllocHGlobal(sizeof(Dungeon));
-            //int size = sizeof(Dungeon);
+            if (dungeonData == null)
+                return;
+            int size = sizeof(Dungeon);
             var newDungeon = dungeonData;
-            //Buffer.MemoryCopy(&dungeonData, newDungeon,size,size);
             for (int i = 0; i < MemDataBaseCore->DungeonDBArraySize; i++)
-                if (DungeonList[i] == newDungeon) return;
+                if (DungeonList[i]->DungeonID == newDungeon->DungeonID)
+                    if (DungeonList[i] != newDungeon)
+                    {
+                        Marshal.FreeHGlobal((nint)DungeonList[i]);
+                        DungeonList[i] = newDungeon;
+                    }
+            if (CurrentSize == DungeonListArraySize)
+                IncreaseListCapacity();
+
             DungeonList[MemDataBaseCore->DungeonDBArraySize] = newDungeon;
             Console.WriteLine(((nuint)newDungeon).ToString("X"));
             MemDataBaseCore->DungeonDBArraySize++;

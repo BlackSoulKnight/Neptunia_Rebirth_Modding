@@ -2,6 +2,12 @@
 using Reloaded.Hooks.ReloadedII.Interfaces;
 using Reloaded.Mod.Interfaces;
 using Neptunia_Modding.Modding.Hooks;
+using System.Text;
+using System.Runtime.CompilerServices;
+using Neptunia_Modding.Modding.CustomContent;
+
+
+
 
 
 #if DEBUG
@@ -16,6 +22,9 @@ namespace Neptunia_Modding
     /// </summary>
     public class Mod : ModBase // <= Do not Remove.
     {
+
+        public static string ModFolder = Directory.GetCurrentDirectory() + "\\Mods";
+
         /// <summary>
         /// Provides access to the mod loader API.
         /// </summary>
@@ -59,8 +68,10 @@ namespace Neptunia_Modding
             Module = Process.GetCurrentProcess().MainModule;
             ModuleBase = (UIntPtr)Module.BaseAddress;
 
+            AdditionalContent.FindMods();
             DungeonHooks.SetupHooks(_hooks);
             SaveGameHooks.SetupHooks(_hooks);
+            FileImport.SetupHooks(_hooks);
         }
 
 

@@ -1,4 +1,5 @@
-﻿using Neptunia_Modding.Modding.SaveFile;
+﻿using Neptunia_Modding.Modding.CustomContent;
+using Neptunia_Modding.Modding.SaveFile;
 using Neptunia_Modding.Structures.Database.Dungeon;
 using System;
 using System.Collections.Generic;
@@ -20,14 +21,19 @@ namespace Neptunia_Modding.Test
             TestDungeon = (Dungeon*)Marshal.AllocHGlobal(sizeof(Dungeon));
             var target = Dungeons.GetDungeon(1);
             Buffer.MemoryCopy(target, TestDungeon, sizeof(Dungeon), sizeof(Dungeon));
-            TestDungeon->DungeonLayout = 220;
-            TestDungeon->DungeonLayoutVariant = 1;
+            TestDungeon->DungeonMap = 220;
+            TestDungeon->DungeonMapVariant = 1;
             TestDungeon->DungeonID = 100;
-            TestDungeon->WorldMapPosY = 0x26E;
-            TestDungeon->NamePointer = (nuint)Marshal.StringToHGlobalAnsi("Extra Dungeon");
+            TestDungeon->NamePointer = (nint)Marshal.StringToHGlobalAnsi("Extra Dungeon");
             Dungeons.CreateDungeon(TestDungeon);
             return TestDungeon;
 
+        }
+
+        public static void Test_Load_Dungeon()
+        {
+            var CustomDungeon = new CustomDungeon("C:\\Users\\BSK\\source\\repos\\Neptunia_Modding\\Examples\\Dungeon");
+            //CustomDungeon.LoadFiles();
         }
 
     }

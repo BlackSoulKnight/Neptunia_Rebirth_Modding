@@ -1,4 +1,5 @@
-﻿using Neptunia_Modding.Structures.Database.Dungeon;
+﻿using Neptunia_Modding.Modding.CustomContent;
+using Neptunia_Modding.Structures.Database.Dungeon;
 using Neptunia_Modding.Structures.SaveFile;
 using Reloaded.Hooks.Definitions.Structs;
 using Reloaded.Memory;
@@ -69,7 +70,7 @@ namespace Neptunia_Modding.Modding.SaveFile
 
             result = Saves.CreateDefault(dungeonID);
             result->DungeonID = dungeonID;
-            result->SubWorld = dungeonDBEntry->SubWorld;
+            result->SubWorld = dungeonDBEntry->MapInfo.SubWorld;
             return result;
         }
 

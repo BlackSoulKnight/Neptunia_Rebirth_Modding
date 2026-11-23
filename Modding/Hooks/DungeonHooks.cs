@@ -93,13 +93,14 @@ namespace Neptunia_Modding.Modding.Hooks
 
         [Function(CallingConventions.Stdcall)]
         public delegate void OnDungeonDBInit();
-        //8B 85 ?? ?? ?? ?? 39 47 ?? 76
+        //8B 85 ?? ?? ?? ?? 39 47 ?? 76 (+BFEB3)
         public static void DungeonDBInit()
         {
             Dungeons.DungeonInit();
             return;
         }
 
+        //A1 ?? ?? ?? ?? 68 B8 4B 06 00 Reset Dungeon Saves
 
 
 

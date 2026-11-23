@@ -1,0 +1,21 @@
+{
+  "DungeonName": "First Dungeon",
+  "Dungeon": {
+    "DungeonID": 1,
+    "BGM": 8,
+    "DungeonMap": 500,
+    "DungeonMapVariant": 3,
+    "ScoutDays":1,
+    "ScoutDuration":5,
+    "ScoutTimeout":1,
+    "TreasureID": [ 11, 12, 13, 0, 0, 0, 0, 0, 0, 0 ],
+    "Connections": [ 0, 0, 0, 0, 0 ],
+    "MapInfo": {
+      "OverWorld": 4,
+      "SubWorld": 1,
+      "WorldMapIcon": 117,
+      "WorldMapPosX": 434,
+      "WorldMapPosY": 878
+    }
+  }
+}

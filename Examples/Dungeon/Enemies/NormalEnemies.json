@@ -1,0 +1,707 @@
+[
+  {
+    "Searching": {
+      "DetectionRange": 6.0,
+      "DetectionCone": 100.0,
+      "MinWaitTime": 2,
+      "MaxWaitTime": 4,
+      "MinWalkDistance": 3,
+      "MaxWalkDistance": 7
+    },
+    "Chasing": {
+      "DetectionRange": 75.0,
+      "DetectionCone": 25.0,
+      "MinWaitTime": 2,
+      "MaxWaitTime": 4,
+      "MinWalkDistance": 4,
+      "MaxWalkDistance": 7
+    },
+    "AlertCheckRate": 240,
+    "RespawnTime": 30,
+    "EncounterInfo": [
+      {
+        "EnemyID": 101,
+        "MinQuantity": 1,
+        "MaxQuantity": 1
+      },
+      {
+        "EnemyID": 103,
+        "MinQuantity": 1,
+        "MaxQuantity": 2
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      }
+    ]
+  },
+  {
+    "Searching": {
+      "DetectionRange": 11.0,
+      "DetectionCone": 180.0,
+      "MinWaitTime": 2,
+      "MaxWaitTime": 5,
+      "MinWalkDistance": 6,
+      "MaxWalkDistance": 9
+    },
+    "Chasing": {
+      "DetectionRange": 45.0,
+      "DetectionCone": 120.0,
+      "MinWaitTime": 2,
+      "MaxWaitTime": 5,
+      "MinWalkDistance": 4,
+      "MaxWalkDistance": 8
+    },
+    "AlertCheckRate": 300,
+    "RespawnTime": 30,
+    "EncounterInfo": [
+      {
+        "EnemyID": 106,
+        "MinQuantity": 1,
+        "MaxQuantity": 2
+      },
+      {
+        "EnemyID": 101,
+        "MinQuantity": 1,
+        "MaxQuantity": 1
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      }
+    ]
+  },
+  {
+    "Searching": {
+      "DetectionRange": 6.0,
+      "DetectionCone": 100.0,
+      "MinWaitTime": 2,
+      "MaxWaitTime": 4,
+      "MinWalkDistance": 3,
+      "MaxWalkDistance": 7
+    },
+    "Chasing": {
+      "DetectionRange": 25.0,
+      "DetectionCone": 75.0,
+      "MinWaitTime": 2,
+      "MaxWaitTime": 4,
+      "MinWalkDistance": 4,
+      "MaxWalkDistance": 7
+    },
+    "AlertCheckRate": 240,
+    "RespawnTime": 30,
+    "EncounterInfo": [
+      {
+        "EnemyID": 104,
+        "MinQuantity": 1,
+        "MaxQuantity": 2
+      },
+      {
+        "EnemyID": 103,
+        "MinQuantity": 1,
+        "MaxQuantity": 2
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      }
+    ]
+  },
+  {
+    "Searching": {
+      "DetectionRange": 6.0,
+      "DetectionCone": 100.0,
+      "MinWaitTime": 2,
+      "MaxWaitTime": 4,
+      "MinWalkDistance": 3,
+      "MaxWalkDistance": 7
+    },
+    "Chasing": {
+      "DetectionRange": 25.0,
+      "DetectionCone": 75.0,
+      "MinWaitTime": 2,
+      "MaxWaitTime": 4,
+      "MinWalkDistance": 4,
+      "MaxWalkDistance": 7
+    },
+    "AlertCheckRate": 240,
+    "RespawnTime": 30,
+    "EncounterInfo": [
+      {
+        "EnemyID": 102,
+        "MinQuantity": 1,
+        "MaxQuantity": 1
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      }
+    ]
+  },
+  {
+    "Searching": {
+      "DetectionRange": 11.0,
+      "DetectionCone": 180.0,
+      "MinWaitTime": 2,
+      "MaxWaitTime": 5,
+      "MinWalkDistance": 6,
+      "MaxWalkDistance": 9
+    },
+    "Chasing": {
+      "DetectionRange": 45.0,
+      "DetectionCone": 120.0,
+      "MinWaitTime": 2,
+      "MaxWaitTime":50,
+      "MinWalkDistance": 4,
+      "MaxWalkDistance": 8
+    },
+    "AlertCheckRate": 300,
+    "RespawnTime": 30,
+    "EncounterInfo": [
+      {
+        "EnemyID": 105,
+        "MinQuantity": 1,
+        "MaxQuantity": 1
+      },
+      {
+        "EnemyID": 106,
+        "MinQuantity": 1,
+        "MaxQuantity": 2
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      }
+    ]
+  },
+  {
+    "Searching": {
+      "DetectionRange": 0.0,
+      "DetectionCone": 10.0,
+      "MinWaitTime": 0,
+      "MaxWaitTime": 0,
+      "MinWalkDistance": 0,
+      "MaxWalkDistance": 0
+    },
+    "Chasing": {
+      "DetectionRange": 0.0,
+      "DetectionCone": 10.0,
+      "MinWaitTime": 0,
+      "MaxWaitTime": 0,
+      "MinWalkDistance": 0,
+      "MaxWalkDistance": 0
+    },
+    "AlertCheckRate": 360,
+    "RespawnTime": 30,
+    "EncounterInfo": [
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      }
+    ]
+  },
+  {
+    "Searching": {
+      "DetectionRange": 0.0,
+      "DetectionCone": 10.0,
+      "MinWaitTime": 0,
+      "MaxWaitTime": 0,
+      "MinWalkDistance": 0,
+      "MaxWalkDistance": 0
+    },
+    "Chasing": {
+      "DetectionRange": 0.0,
+      "DetectionCone": 10.0,
+      "MinWaitTime": 0,
+      "MaxWaitTime": 0,
+      "MinWalkDistance": 0,
+      "MaxWalkDistance": 0
+    },
+    "AlertCheckRate": 360,
+    "RespawnTime": 30,
+    "EncounterInfo": [
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      }
+    ]
+  },
+  {
+    "Searching": {
+      "DetectionRange": 0.0,
+      "DetectionCone": 10.0,
+      "MinWaitTime": 0,
+      "MaxWaitTime": 0,
+      "MinWalkDistance": 0,
+      "MaxWalkDistance": 0
+    },
+    "Chasing": {
+      "DetectionRange": 0.0,
+      "DetectionCone": 10.0,
+      "MinWaitTime": 0,
+      "MaxWaitTime": 0,
+      "MinWalkDistance": 0,
+      "MaxWalkDistance": 0
+    },
+    "AlertCheckRate": 360,
+    "RespawnTime": 30,
+    "EncounterInfo": [
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      }
+    ]
+  },
+  {
+    "Searching": {
+      "DetectionRange": 0.0,
+      "DetectionCone": 10.0,
+      "MinWaitTime": 0,
+      "MaxWaitTime": 0,
+      "MinWalkDistance": 0,
+      "MaxWalkDistance": 0
+    },
+    "Chasing": {
+      "DetectionRange": 0.0,
+      "DetectionCone": 10.0,
+      "MinWaitTime": 0,
+      "MaxWaitTime": 0,
+      "MinWalkDistance": 0,
+      "MaxWalkDistance": 0
+    },
+    "AlertCheckRate": 360,
+    "RespawnTime": 30,
+    "EncounterInfo": [
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      }
+    ]
+  },
+  {
+    "Searching": {
+      "DetectionRange": 0.0,
+      "DetectionCone": 10.0,
+      "MinWaitTime": 0,
+      "MaxWaitTime": 0,
+      "MinWalkDistance": 0,
+      "MaxWalkDistance": 0
+    },
+    "Chasing": {
+      "DetectionRange": 0.0,
+      "DetectionCone": 10.0,
+      "MinWaitTime": 0,
+      "MaxWaitTime": 0,
+      "MinWalkDistance": 0,
+      "MaxWalkDistance": 0
+    },
+    "AlertCheckRate": 360,
+    "RespawnTime": 30,
+    "EncounterInfo": [
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      }
+    ]
+  },
+  {
+    "Searching": {
+      "DetectionRange": 0.0,
+      "DetectionCone": 10.0,
+      "MinWaitTime": 0,
+      "MaxWaitTime": 0,
+      "MinWalkDistance": 0,
+      "MaxWalkDistance": 0
+    },
+    "Chasing": {
+      "DetectionRange": 0.0,
+      "DetectionCone": 10.0,
+      "MinWaitTime": 0,
+      "MaxWaitTime": 0,
+      "MinWalkDistance": 0,
+      "MaxWalkDistance": 0
+    },
+    "AlertCheckRate": 360,
+    "RespawnTime": 30,
+    "EncounterInfo": [
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      }
+    ]
+  },
+  {
+    "Searching": {
+      "DetectionRange": 0.0,
+      "DetectionCone": 10.0,
+      "MinWaitTime": 0,
+      "MaxWaitTime": 0,
+      "MinWalkDistance": 0,
+      "MaxWalkDistance": 0
+    },
+    "Chasing": {
+      "DetectionRange": 0.0,
+      "DetectionCone": 10.0,
+      "MinWaitTime": 0,
+      "MaxWaitTime": 0,
+      "MinWalkDistance": 0,
+      "MaxWalkDistance": 0
+    },
+    "AlertCheckRate": 360,
+    "RespawnTime": 30,
+    "EncounterInfo": [
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      }
+    ]
+  },
+  {
+    "Searching": {
+      "DetectionRange": 0.0,
+      "DetectionCone": 10.0,
+      "MinWaitTime": 0,
+      "MaxWaitTime": 0,
+      "MinWalkDistance": 0,
+      "MaxWalkDistance": 0
+    },
+    "Chasing": {
+      "DetectionRange": 0.0,
+      "DetectionCone": 10.0,
+      "MinWaitTime": 0,
+      "MaxWaitTime": 0,
+      "MinWalkDistance": 0,
+      "MaxWalkDistance": 0
+    },
+    "AlertCheckRate": 360,
+    "RespawnTime": 30,
+    "EncounterInfo": [
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      }
+    ]
+  },
+  {
+    "Searching": {
+      "DetectionRange": 0.0,
+      "DetectionCone": 10.0,
+      "MinWaitTime": 0,
+      "MaxWaitTime": 0,
+      "MinWalkDistance": 0,
+      "MaxWalkDistance": 0
+    },
+    "Chasing": {
+      "DetectionRange": 0.0,
+      "DetectionCone": 10.0,
+      "MinWaitTime": 0,
+      "MaxWaitTime": 0,
+      "MinWalkDistance": 0,
+      "MaxWalkDistance": 0
+    },
+    "AlertCheckRate": 360,
+    "RespawnTime": 30,
+    "EncounterInfo": [
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      }
+    ]
+  },
+  {
+    "Searching": {
+      "DetectionRange": 0.0,
+      "DetectionCone": 10.0,
+      "MinWaitTime": 0,
+      "MaxWaitTime": 0,
+      "MinWalkDistance": 0,
+      "MaxWalkDistance": 0
+    },
+    "Chasing": {
+      "DetectionRange": 0.0,
+      "DetectionCone": 10.0,
+      "MinWaitTime": 0,
+      "MaxWaitTime": 0,
+      "MinWalkDistance": 0,
+      "MaxWalkDistance": 0
+    },
+    "AlertCheckRate": 360,
+    "RespawnTime": 30,
+    "EncounterInfo": [
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      },
+      {
+        "EnemyID": 0,
+        "MinQuantity": 0,
+        "MaxQuantity": 0
+      }
+    ]
+  }
+]

@@ -1,0 +1,317 @@
+[
+  {
+    "SpotID": 5,
+    "ItemDrop1": {
+      "ItemID": 863,
+      "Chance": 100,
+      "MinQuantity": 1,
+      "MaxQuantity": 2
+    },
+    "ItemDrop2": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop3": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    }
+  },
+  {
+    "SpotID": 6,
+    "ItemDrop1": {
+      "ItemID": 873,
+      "Chance": 100,
+      "MinQuantity": 1,
+      "MaxQuantity": 2
+    },
+    "ItemDrop2": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop3": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    }
+  },
+  {
+    "SpotID": 7,
+    "ItemDrop1": {
+      "ItemID": 801,
+      "Chance": 100,
+      "MinQuantity": 1,
+      "MaxQuantity": 2
+    },
+    "ItemDrop2": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop3": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    }
+  },
+  {
+    "SpotID": 8,
+    "ItemDrop1": {
+      "ItemID": 906,
+      "Chance": 100,
+      "MinQuantity": 1,
+      "MaxQuantity": 2
+    },
+    "ItemDrop2": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop3": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    }
+  },
+  {
+    "SpotID": 0,
+    "ItemDrop1": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop2": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop3": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    }
+  },
+  {
+    "SpotID": 0,
+    "ItemDrop1": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop2": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop3": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    }
+  },
+  {
+    "SpotID": 0,
+    "ItemDrop1": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop2": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop3": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    }
+  },
+  {
+    "SpotID": 0,
+    "ItemDrop1": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop2": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop3": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    }
+  },
+  {
+    "SpotID": 0,
+    "ItemDrop1": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop2": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop3": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    }
+  },
+  {
+    "SpotID": 0,
+    "ItemDrop1": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop2": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop3": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    }
+  },
+  {
+    "SpotID": 0,
+    "ItemDrop1": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop2": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop3": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    }
+  },
+  {
+    "SpotID": 0,
+    "ItemDrop1": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop2": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop3": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    }
+  },
+  {
+    "SpotID": 0,
+    "ItemDrop1": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop2": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop3": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    }
+  },
+  {
+    "SpotID": 0,
+    "ItemDrop1": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop2": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop3": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    }
+  },
+  {
+    "SpotID": 0,
+    "ItemDrop1": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop2": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    },
+    "ItemDrop3": {
+      "ItemID": 0,
+      "Chance": 0,
+      "MinQuantity": 0,
+      "MaxQuantity": 0
+    }
+  }
+]

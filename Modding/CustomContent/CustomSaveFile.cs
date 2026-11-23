@@ -1,15 +1,17 @@
-﻿using Neptunia_Modding.Structures.SaveFile;
+﻿using Neptunia_Modding.Modding.SaveFile;
+using Neptunia_Modding.Structures.SaveFile;
 using Reloaded.Memory.Pointers;
+using Reloaded.Mod.Interfaces.Structs.Enums;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Xml.Linq;
 
-namespace Neptunia_Modding.Modding.SaveFile
+namespace Neptunia_Modding.Modding.CustomContent
 {
     public static unsafe class CustomSaveFile
     {
-        public static string Path => Directory.GetCurrentDirectory()+ "\\Modding";
+        public static string Path => Mod.ModFolder+"/SaveFile";
 
         public delegate void SaveGame(int saveFile);
         public delegate void InitSaveGame();
