@@ -46,8 +46,9 @@ namespace Neptunia_Modding.Modding.SaveFile
             {
                 newList[i] = DungeonList[i];
             }
-            Marshal.FreeHGlobal((nint)DungeonList);
+            nint toBeRemoved = (nint)DungeonList;
             DungeonList = newList;
+            Marshal.FreeHGlobal((nint)toBeRemoved);
         }
 
         public static void CreateDungeon(Dungeon* dungeonData) {

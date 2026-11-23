@@ -21,7 +21,7 @@ namespace Neptunia_Modding.Modding.Hooks
         public static IReverseWrapper<OnCountDungeonOnMap> _onCountDungeonOnMap;
         public static IReverseWrapper<OnPlaceDungeonOnMap> _onPlaceDungeonOnMap;
         public static IReverseWrapper<OnReduceScoutDays> _onReduceScoutDays;
-        public static IReverseWrapper<OnDungeonDBInit> _onDungeonDBInit;
+        public static IReverseWrapper<OnMemDataCoreSetupFinish> _onDungeonDBInit;
 
 
         public static IFunction<DunnoButImportant> _smth;
@@ -92,9 +92,9 @@ namespace Neptunia_Modding.Modding.Hooks
         }
 
         [Function(CallingConventions.Stdcall)]
-        public delegate void OnDungeonDBInit();
-        //8B 85 ?? ?? ?? ?? 39 47 ?? 76 (+BFEB3)
-        public static void DungeonDBInit()
+        public delegate void OnMemDataCoreSetupFinish();
+        //C7 81 ?? ?? ?? ?? 00 00 00 00 E8 ?? ?? ?? ?? 8B 4D (+BFEB3)
+        public static void AfterMemDataCoreSetup()
         {
             Dungeons.DungeonInit();
             return;
@@ -244,13 +244,13 @@ namespace Neptunia_Modding.Modding.Hooks
                 };
                 _asmHooks.Add(hooks.CreateAsmHook(asm, (int)(Mod.ModuleBase + offset), AsmHookBehaviour.DoNotExecuteOriginal).Activate());
             }
-            if (FunctionScanner.FindFunction("Dungeon Array Init", "01 47 ?? 8B 85", out offset))
+            if (FunctionScanner.FindFunction("Dungeon Array Init", "C7 81 ?? ?? ?? ?? 00 00 00 00 E8 ?? ?? ?? ?? 8B 4D", out offset))
             {
                 string[] asm = {
                 "use32",
                 "pushad",
                 "pushfd",
-                $"{hooks.Utilities.GetAbsoluteCallMnemonics(DungeonDBInit, out _onDungeonDBInit)}",
+                $"{hooks.Utilities.GetAbsoluteCallMnemonics(AfterMemDataCoreSetup, out _onDungeonDBInit)}",
                 "popfd",
                 "popad",
                 };
