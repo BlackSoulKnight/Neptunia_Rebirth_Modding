@@ -17,7 +17,7 @@ namespace Neptunia_Modding.Modding.SaveFile
         static int CurrentSize => MemDataBaseCore->DungeonDBArraySize;
         internal readonly static ObjectDictonary<int, byte> NameList = new();
         public static event AdditionalContent.LoadFiles OnLoadDungeons;
-
+        static bool Init = false;
         static Dungeons()
         {
 
@@ -25,8 +25,9 @@ namespace Neptunia_Modding.Modding.SaveFile
         
         public static void DungeonInit()
         {
-            if (CurrentSize != 0)
+            if (!Init && CurrentSize != 0)
             {
+                Init = true;
                 int i = 0;
                 for (; i < MemDataBaseCore->DungeonDBArraySize; i++)
                 {
@@ -58,7 +59,7 @@ namespace Neptunia_Modding.Modding.SaveFile
                 if (DungeonList[i]->DungeonID == newDungeon->DungeonID)
                     if (DungeonList[i] != newDungeon)
                     {
-                        Marshal.FreeHGlobal((nint)DungeonList[i]);
+                        Marshal.FreeHGlobal((nint)(DungeonList[i]));
                         DungeonList[i] = newDungeon;
                     }
             if (CurrentSize == DungeonListArraySize)
