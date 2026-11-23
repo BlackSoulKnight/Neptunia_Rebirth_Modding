@@ -11,47 +11,47 @@ namespace Neptunia_Modding.Structures.Database.Dungeon
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct EnemyOverworldAI
     {
-        public float DetectionRange;
-        public float DetectionCone;
-        public uint MinWaitTime;
-        public uint MaxWaitTime;
-        public uint MinWalkDistance;
-        public uint MaxWalkDistance;
+        public float DetectionRange { get; set; }
+        public float DetectionCone { get; set; }
+        public uint MinWaitTime { get; set; }
+        public uint MaxWaitTime { get; set; }
+        public uint MinWalkDistance { get; set; }
+        public uint MaxWalkDistance { get; set; }
     }
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct EnemyEncounterInfo
     {
-        public ushort EnemyID;
-        public ushort MinQuantity;
-        public ushort MaxQuantity;
+        public ushort EnemyID { get; set; }
+        public ushort MinQuantity { get; set; }
+        public ushort MaxQuantity { get; set; }
+        public ushort u4 { get; set; } //always 0
     }
 
 
-    [StructLayout(LayoutKind.Explicit, Size = 0x1d90)]
+    [StructLayout(LayoutKind.Sequential)]
     public unsafe struct DungeonEnemy
     {
-        //[FieldOffset(0x0)] short ;
-        //[FieldOffset(0x2)] short ;
-        [FieldOffset(0x4)] EnemyOverworldAI Unaware;
-        [FieldOffset(0x1C)] EnemyOverworldAI Alerted;
-        //[FieldOffset(0x34)] float ;
-        [FieldOffset(0x38)] ushort RespawnTime;
-        //[FieldOffset(0x3A)] ushort ;
-        //[FieldOffset(0x3C)] ushort ;
-        [FieldOffset(0x3E)] DungeonEnemiesEnocunter EncounterInfo;
-        //[FieldOffset(0x66)] short ;
-        //[FieldOffset(0x68)] short ;
-        //[FieldOffset(0x6A)] short ;
-
+        public short unkown1 { get; set; } //always 0x1 even when no mob exist
+        public short unkown2 { get; set; } //always 0xf when mob exist
+        public EnemyOverworldAI Searching { get; set; }
+        public EnemyOverworldAI Chasing { get; set; }
+        public float AlertCheckRate { get; set; } // Value divided roughly by 57   -> smaller == faster
+        public ushort RespawnTime { get; set; }
+        public ushort unkown3 { get; set; } //always 3
+        public ushort unkown4 { get; set; } //always 0
+        public DungeonEnemiesEncounter Encounter { get; set; }
+        public short unkown5 { get; set; } //always 0
+        public short unkown6 { get; set; } //always 0
+        public short unkown7 { get; set; } //always 0
     }
     [InlineArray(15)]
     public struct DungeonEnemies
     {
-        private DungeonEnemy _firstElement;
+        public DungeonEnemy _firstElement;
     }
     [InlineArray(5)]
-    public struct DungeonEnemiesEnocunter
+    public struct DungeonEnemiesEncounter
     {
-        private EnemyEncounterInfo _firstElement;
+        public EnemyEncounterInfo _firstElement;
     }
 }

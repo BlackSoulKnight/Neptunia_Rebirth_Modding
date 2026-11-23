@@ -1,6 +1,4 @@
-﻿using Neptunia_Modding.Structures.Character.Attacks;
-using Neptunia_Modding.Structures.Character.Effects;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace Neptunia_Modding.Structures.Database.Dungeon
@@ -8,46 +6,64 @@ namespace Neptunia_Modding.Structures.Database.Dungeon
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct DB_Dungeon_ItemDrop
     {
-        public uint ItemID;
-        public uint Chance;
-        public uint MinQuantity;
-        public uint MaxQuantity;
+        public uint ItemID { get; set; }
+        public uint Chance { get; set; }
+        public uint MinQuantity { get; set; }
+        public uint MaxQuantity { get; set; }
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public unsafe struct DungeonMapInfo
+    {
+        public ushort OverWorld { get; set; }
+        public ushort UnWorld { get; set; }
+        public ushort SubWorld { get; set; }
+        public ushort WorldMapIcon { get; set; }
+        public int WorldMapPosX { get; set; }
+        public int WorldMapPosY { get; set; }
     }
 
 
+    [InlineArray(10)]
+    public struct TreasureIDs
+    {
+        private int _firstElement;
+    }
+
+    [InlineArray(9)]
+    public struct HERB
+    {
+        private short _firstElement;
+    }
+
+    [InlineArray(5)]
+    public struct Connections
+    {
+        private int _firstElement;
+    }
 
 
-    [StructLayout(LayoutKind.Explicit, Size = 0x1d90)]
+    [StructLayout(LayoutKind.Sequential, Size = 0x1d90)]
     public unsafe struct Dungeon
     {
-        [FieldOffset(0x0)] public ushort DungeonID;
-        [FieldOffset(0x2)] public ushort BGM;
-        [FieldOffset(0x4)] public ushort OverWorld;
-        [FieldOffset(0x4)] public ushort UnWorld;
-        [FieldOffset(0x4)] public ushort SubWorld; 
-        [FieldOffset(0xA)] public ushort WorldMapIcon;
-        [FieldOffset(0xC)] public int WorldMapPosX;
-        [FieldOffset(0x10)] public int WorldMapPosY;
-        [FieldOffset(0x14)] public ushort DungeonLayout;
-        [FieldOffset(0x16)] public ushort DungeonLayoutVariant;
-        [FieldOffset(0x18)] public nuint NamePointer;
-        [FieldOffset(0x1C)] public ushort ScoutDays;
-        [FieldOffset(0x1E)] public ushort ScoutTimout;
-        [FieldOffset(0x20)] public ushort ScoutDuration;
-        [FieldOffset(0x22)] public fixed ushort HERB[9]; //unkown
-        [FieldOffset(0x34)] public fixed int TreasureIds[10]; //something about event flags
-        [FieldOffset(0x5C)] public HiddenTreasure HiddenTreasure;
-        [FieldOffset(0x160)] public DungeonEnemies Enemy1;
-        [FieldOffset(0x7B4)] public DungeonEnemies Enemy2;
-        [FieldOffset(0xE08)] public DungeonEnemies Enemy3;
-        [FieldOffset(0x145C)] public GatherSpots Gather1;
-        [FieldOffset(0x1768)] public GatherSpots Gather2;
-        [FieldOffset(0x1a74)] public GatherSpots Gather3;
-        [FieldOffset(0x1d80)] public int NextDungeon1;
-        [FieldOffset(0x1d84)] public int NextDungeon2;
-        [FieldOffset(0x1d88)] public int NextDungeon3;
-        [FieldOffset(0x1d8C)] public int NextDungeon4;
-        [FieldOffset(0x1d90)] public int NextDungeon5;
-
+        public ushort DungeonID { get; set; }
+        public ushort BGM { get; set; }
+        public DungeonMapInfo MapInfo { get; set; }
+        public ushort DungeonMap { get; set; }
+        public ushort DungeonMapVariant { get; set; }
+        public nint NamePointer { get; set; }
+        public ushort ScoutDays { get; set; }
+        public ushort ScoutTimeout { get; set; }
+        public ushort ScoutDuration { get; set; }
+        public HERB HERB { get; set; } //unkown
+        public TreasureIDs TreasureIds { get; set; }  // Treasure are set in the Treasure.gbin
+        public HiddenTreasure HiddenTreasure { get; set; }
+        public DungeonEnemies NormalEnemies { get; set; }
+        public DungeonEnemies ChangeEnemy { get; set; }
+        public DungeonEnemies ChangeDungeonEnemy { get; set; }
+        public GatherSpots NormalGather { get; set; }
+        public GatherSpots ChangeGather { get; set; }
+        public GatherSpots ChangeDungeonGather { get; set; }
+        public Connections Connections { get; set; }
     }
 }
