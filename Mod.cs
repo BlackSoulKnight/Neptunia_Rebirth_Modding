@@ -71,7 +71,7 @@ namespace Neptunia_Modding
             AdditionalContent.FindMods();
             DungeonHooks.SetupHooks(_hooks);
             SaveGameHooks.SetupHooks(_hooks);
-            FileImport.SetupHooks(_hooks);
+            //FileImport.SetupHooks(_hooks);
         }
 
 
