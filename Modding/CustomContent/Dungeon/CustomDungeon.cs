@@ -9,10 +9,8 @@ using System.Text.Json;
 
 namespace Neptunia_Modding.Modding.CustomContent
 {
-    public unsafe class CustomDungeon : AdditionalContent
+    internal unsafe class CustomDungeon : AdditionalContent
     {
-        string Path;
-
         const string DungeonInfo = "/Dungeon.json";
         const string OverworldInfo = "/OverWorld.json";
         const string NormalEnemies = "/Enemies/NormalEnemies.json";
@@ -21,12 +19,14 @@ namespace Neptunia_Modding.Modding.CustomContent
         const string NormalGather = "/Gather/NormalGather.json";
         const string ChangeGather = "/Gather/ChangeGather.json";
         const string ChangeDungeonGather = "/Gather/ChangeDungeonGather.json";
+        const string MapResourcePath = "/Resources/map";
+        int _dungeonMap = 0;
+        string MapResourceDest => $"/game2/mods/{ModID}/model/dungeon/{_dungeonMap:D4}";
         const int StringSize = 32;
 
 
-        public CustomDungeon(string modPath)
+        internal CustomDungeon(ModInfo mod, string baseDirectory) :base(mod,baseDirectory)
         {
-            Path = modPath;
         }
 
         GatherSpots LoadGatherSpots(string path)
@@ -142,33 +142,51 @@ namespace Neptunia_Modding.Modding.CustomContent
             }
             return true;
         }
+
+
+        void CopyResources(Dungeon* dungeon)
+        {
+            string mapResource = BaseDirectory+MapResourcePath;
+            string copyTo = NeptuniaModder.LooseFiles+ MapResourceDest;
+            if (!Directory.Exists(mapResource))
+                return;
+            if (Directory.Exists(copyTo))
+                return;
+            Directory.CreateDirectory(copyTo);
+            Util.CopyDirectory(mapResource, copyTo);
+        }
+
         override protected void LoadMod()
         {
-            //most important files
 
-            if (!File.Exists(Path + DungeonInfo))
+
+            if (!File.Exists(BaseDirectory + DungeonInfo))
                 return;
             Dungeon* newDungeon = (Dungeon*)Marshal.AllocHGlobal(sizeof(Dungeon));
             //Init everything with 0
             *newDungeon = new Dungeon();
-            if (!InitDungeon(newDungeon, Path + DungeonInfo))
+            if (!InitDungeon(newDungeon, BaseDirectory + DungeonInfo))
                 return;
 
-            if (File.Exists(Path + NormalEnemies))
-                newDungeon->NormalEnemies = LoadEnemies(Path + NormalEnemies);
-            if (File.Exists(Path + ChangeEnemies))
-                newDungeon->ChangeEnemy = LoadEnemies(Path + ChangeEnemies);
-            if (File.Exists(Path + ChangeDungeonEnemies))
-                newDungeon->ChangeDungeonEnemy = LoadEnemies(Path + ChangeDungeonEnemies);
+            if (File.Exists(BaseDirectory + NormalEnemies))
+                newDungeon->NormalEnemies = LoadEnemies(BaseDirectory + NormalEnemies);
+            if (File.Exists(BaseDirectory + ChangeEnemies))
+                newDungeon->ChangeEnemy = LoadEnemies(BaseDirectory + ChangeEnemies);
+            if (File.Exists(BaseDirectory + ChangeDungeonEnemies))
+                newDungeon->ChangeDungeonEnemy = LoadEnemies(BaseDirectory + ChangeDungeonEnemies);
 
-            if (File.Exists(Path + NormalGather))
-                newDungeon->NormalGather = LoadGatherSpots(Path + NormalGather);
-            if (File.Exists(Path + ChangeGather))
-                newDungeon->ChangeGather = LoadGatherSpots(Path + ChangeGather);
-            if (File.Exists(Path + ChangeDungeonGather))
-                newDungeon->ChangeDungeonGather = LoadGatherSpots(Path + ChangeDungeonGather);
+            if (File.Exists(BaseDirectory + NormalGather))
+                newDungeon->NormalGather = LoadGatherSpots(BaseDirectory + NormalGather);
+            if (File.Exists(BaseDirectory + ChangeGather))
+                newDungeon->ChangeGather = LoadGatherSpots(BaseDirectory + ChangeGather);
+            if (File.Exists(BaseDirectory + ChangeDungeonGather))
+                newDungeon->ChangeDungeonGather = LoadGatherSpots(BaseDirectory + ChangeDungeonGather);
 
-
+            _dungeonMap = newDungeon->DungeonMap;
+            HERB herb = new HERB();
+            herb[0] = (short)ModID;
+            newDungeon->HERB = herb;
+            CopyResources(newDungeon);
             Dungeons.CreateDungeon(newDungeon);
         }
 

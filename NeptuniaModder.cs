@@ -20,10 +20,10 @@ namespace Neptunia_Modding
     /// <summary>
     /// Your mod logic goes here.
     /// </summary>
-    public class Mod : ModBase // <= Do not Remove.
+    public class NeptuniaModder : ModBase // <= Do not Remove.
     {
-
-        public static string ModFolder = Directory.GetCurrentDirectory() + "\\Mods";
+        public static readonly string LooseFiles = Directory.GetCurrentDirectory() + "\\loosefiles\\data";
+        public static readonly string ModFolder = Directory.GetCurrentDirectory() + "\\Mods";
 
         /// <summary>
         /// Provides access to the mod loader API.
@@ -46,6 +46,7 @@ namespace Neptunia_Modding
         /// </summary>
         private readonly IMod _owner;
 
+        private readonly List<ModInfo> Mods;
         /// <summary>
         /// The configuration of the currently executing mod.
         /// </summary>
@@ -53,7 +54,7 @@ namespace Neptunia_Modding
 
         public static ProcessModule Module;
         public static UIntPtr ModuleBase = 0x400000;
-        public Mod(ModContext context)
+        public NeptuniaModder(ModContext context)
         {
             _modLoader = context.ModLoader;
             _hooks = context.Hooks;
@@ -68,7 +69,7 @@ namespace Neptunia_Modding
             Module = Process.GetCurrentProcess().MainModule;
             ModuleBase = (UIntPtr)Module.BaseAddress;
 
-            AdditionalContent.FindMods();
+            Mods = ModInfo.LoadMods();
             DungeonHooks.SetupHooks(_hooks);
             SaveGameHooks.SetupHooks(_hooks);
             //FileImport.SetupHooks(_hooks);
@@ -77,7 +78,7 @@ namespace Neptunia_Modding
 
         #region For Exports, Serialization etc.
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public Mod() { }
+        public NeptuniaModder() { }
 #pragma warning restore CS8618
         #endregion
     }

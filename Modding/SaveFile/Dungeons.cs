@@ -16,7 +16,7 @@ namespace Neptunia_Modding.Modding.SaveFile
         static MemDataBaseCore* MemDataBaseCore => Util.MemDataBaseCore;
         static int CurrentSize => MemDataBaseCore->DungeonDBArraySize;
         internal readonly static ObjectDictonary<int, byte> NameList = new();
-        public static event AdditionalContent.LoadFiles OnLoadDungeons;
+        internal static event AdditionalContent.LoadFiles OnLoadDungeons;
         static bool Init = false;
         static Dungeons()
         {

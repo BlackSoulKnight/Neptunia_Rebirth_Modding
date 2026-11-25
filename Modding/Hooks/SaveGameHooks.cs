@@ -13,7 +13,7 @@ namespace Neptunia_Modding.Modding.Hooks
         public static IReverseWrapper<LoadSaveGame> _onLoadSaveGame;
         public static IReverseWrapper<InitSaveGame> _onInitSaveGame;
         public static IReverseWrapper<SaveSaveGame> _onSaveSaveGame;
-        public static int SaveFileNumber => Memory.Instance.Read<int>(Mod.ModuleBase+ 0x8EB3FC);
+        public static int SaveFileNumber => Memory.Instance.Read<int>(NeptuniaModder.ModuleBase+ 0x8EB3FC);
 
         [Function(new FunctionAttribute.Register[] { }, FunctionAttribute.Register.eax, FunctionAttribute.StackCleanup.Callee)]
         public delegate int LoadSaveGame();
@@ -60,7 +60,7 @@ namespace Neptunia_Modding.Modding.Hooks
                 "popfd",
                 "popad",
                 };
-                _asmHooks.Add(hooks.CreateAsmHook(Event, (int)(Mod.ModuleBase + offset), AsmHookBehaviour.ExecuteFirst).Activate());
+                _asmHooks.Add(hooks.CreateAsmHook(Event, (int)(NeptuniaModder.ModuleBase + offset), AsmHookBehaviour.ExecuteFirst).Activate());
             }
 
             if (FunctionScanner.FindFunction("Save Game", "55 8B EC 81 7D ?? D0 B0 0C 00", out offset))
@@ -73,7 +73,7 @@ namespace Neptunia_Modding.Modding.Hooks
                 "popfd",
                 "popad",
                 };
-                _asmHooks.Add(hooks.CreateAsmHook(Event, (int)(Mod.ModuleBase + offset), AsmHookBehaviour.ExecuteFirst).Activate());
+                _asmHooks.Add(hooks.CreateAsmHook(Event, (int)(NeptuniaModder.ModuleBase + offset), AsmHookBehaviour.ExecuteFirst).Activate());
             }
 
             if (FunctionScanner.FindFunction("New Game", "53 8B DC 83 EC 08 83 E4 F0 83 C4 04 55 8B 6B ?? 89 6C 24 ?? 8B EC 83 EC 28 8B 0D", out offset))
@@ -86,7 +86,7 @@ namespace Neptunia_Modding.Modding.Hooks
                 "popfd",
                 "popad",
                 };
-                _asmHooks.Add(hooks.CreateAsmHook(Event, (int)(Mod.ModuleBase + offset), AsmHookBehaviour.ExecuteFirst).Activate());
+                _asmHooks.Add(hooks.CreateAsmHook(Event, (int)(NeptuniaModder.ModuleBase + offset), AsmHookBehaviour.ExecuteFirst).Activate());
             }
 
         }

@@ -118,7 +118,7 @@ namespace Neptunia_Modding.Modding.Hooks
                     $"{hooks.Utilities.GetAbsoluteCallMnemonics(OnCreateFileHandler, out _onCreateFileHandler)}",
                     "mov esi,eax",
                 };
-                _asmHooks.Add(hooks.CreateAsmHook(code, (int)(Mod.ModuleBase + offset), AsmHookBehaviour.DoNotExecuteOriginal).Activate());
+                _asmHooks.Add(hooks.CreateAsmHook(code, (int)(NeptuniaModder.ModuleBase + offset), AsmHookBehaviour.DoNotExecuteOriginal).Activate());
 
             }
 
@@ -128,7 +128,7 @@ namespace Neptunia_Modding.Modding.Hooks
                 {
                     "use32",
                 };
-                _asmHooks.Add(hooks.CreateAsmHook(code, (int)(Mod.ModuleBase + offset), AsmHookBehaviour.DoNotExecuteOriginal).Activate());
+                _asmHooks.Add(hooks.CreateAsmHook(code, (int)(NeptuniaModder.ModuleBase + offset), AsmHookBehaviour.DoNotExecuteOriginal).Activate());
             }
 
             if (FunctionScanner.FindFunction("Find Resource Location", "FF 15 ?? ?? ?? ?? 85 C0 75 ?? C7 43 ?? 03 00 00 00", out offset))
@@ -157,7 +157,7 @@ namespace Neptunia_Modding.Modding.Hooks
                     "pop ebx",
                     "test eax,eax",
                 };
-                _asmHooks.Add(hooks.CreateAsmHook(code, (int)(Mod.ModuleBase + offset), AsmHookBehaviour.DoNotExecuteOriginal).Activate());
+                _asmHooks.Add(hooks.CreateAsmHook(code, (int)(NeptuniaModder.ModuleBase + offset), AsmHookBehaviour.DoNotExecuteOriginal).Activate());
 
             }
 
@@ -173,7 +173,7 @@ namespace Neptunia_Modding.Modding.Hooks
                 "popfd",
                 "popad",
                 };
-                _asmHooks.Add(hooks.CreateAsmHook(code, (int)(Mod.ModuleBase + offset), AsmHookBehaviour.ExecuteFirst).Activate());
+                _asmHooks.Add(hooks.CreateAsmHook(code, (int)(NeptuniaModder.ModuleBase + offset), AsmHookBehaviour.ExecuteFirst).Activate());
             }
 
 

@@ -37,7 +37,7 @@ namespace Neptunia_Modding.Template
         /// <summary>
         /// Encapsulates your mod logic.
         /// </summary>
-        private ModBase _mod = new Mod();
+        private ModBase _mod = new NeptuniaModder();
 
         /// <summary>
         /// Entry point for your mod.
@@ -51,7 +51,7 @@ namespace Neptunia_Modding.Template
 
             // Please put your mod code in the class below,
             // use this class for only interfacing with mod loader.
-            _mod = new Mod(new ModContext()
+            _mod = new NeptuniaModder(new ModContext()
             {
                 Logger = _logger,
                 Hooks = _hooks,

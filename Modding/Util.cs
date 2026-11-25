@@ -11,7 +11,7 @@ namespace Neptunia_Modding.Modding
 
         static MemDataBaseCore* GetBaseCore()
         {
-            return (MemDataBaseCore*)Memory.Instance.Read<nuint>(Mod.ModuleBase + 0x443310);
+            return (MemDataBaseCore*)Memory.Instance.Read<nuint>(NeptuniaModder.ModuleBase + 0x443310);
         }
         public static void CopyStruct<T>(T* source,T* destination)
         {
@@ -19,6 +19,26 @@ namespace Neptunia_Modding.Modding
             Buffer.MemoryCopy(source, destination, buffer, buffer);
             
         }
+        internal static void CopyDirectory(string sourcePath, string destPath)
+        {
+            if (!Directory.Exists(destPath))
+            {
+                Directory.CreateDirectory(destPath);
+            }
+
+            foreach (string file in Directory.GetFiles(sourcePath))
+            {
+                string dest = Path.Combine(destPath, Path.GetFileName(file));
+                File.Copy(file, dest);
+            }
+
+            foreach (string folder in Directory.GetDirectories(sourcePath))
+            {
+                string dest = Path.Combine(destPath, Path.GetFileName(folder));
+                CopyDirectory(folder, dest);
+            }
+        }
+
 
     }
 }

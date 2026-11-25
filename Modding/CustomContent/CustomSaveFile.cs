@@ -11,7 +11,7 @@ namespace Neptunia_Modding.Modding.CustomContent
 {
     public static unsafe class CustomSaveFile
     {
-        public static string Path => Mod.ModFolder+"/SaveFile";
+        public static string Path => NeptuniaModder.ModFolder+"/SaveFile";
 
         public delegate void SaveGame(int saveFile);
         public delegate void InitSaveGame();

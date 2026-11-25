@@ -123,20 +123,47 @@ namespace Neptunia_Modding.Modding.Hooks
         public delegate bool OnGetMapTexturePath(Dungeon* dungeon,nint fileName,int* someValue, byte* stringDest,int size);
         public static bool GetMapTexturePath(Dungeon* dungeon,nint fileName, int* someValue, byte* stringDest, int size)
         {
-
             string path = $"/MODEL/DUNGEON/MAP/{dungeon->DungeonMap:D4}/TEXTURE/{Marshal.PtrToStringUTF8(fileName)}";
+            if (dungeon->HERB[0] != 702 && dungeon->HERB[0] != 0)
+            {
+                string newPath = $"/MODS/{dungeon->HERB[0]}/MODEL/DUNGEON/{dungeon->DungeonMap:D4}/TEXTURE/{Marshal.PtrToStringUTF8(fileName)}";
+                if (File.Exists((NeptuniaModder.LooseFiles + "/game2" + newPath).ToLower()))
+                    path = newPath;
+            }
+            _sprintfHelper(path, stringDest, size);
+            *someValue = 2;
+            return true;
+        }
+        //55 8B EC 8B 4D ?? 0F B7 41 
+        [Function(CallingConventions.Cdecl)]
+        public delegate bool OnGetMapPath(Dungeon* dungeon,int* someValue, byte* stringDest,int size);
+        public static bool GetMapPath(Dungeon* dungeon, int* someValue, byte* stringDest, int size)
+        {
+            string path = $"/MODEL/DUNGEON/MAP/{dungeon->DungeonMap:D4}/{dungeon->DungeonMapVariant:D3}";
+            if (dungeon->HERB[0] != 702 && dungeon->HERB[0] != 0)
+            {
+                string newPath = $"/MODS/{dungeon->HERB[0]}/MODEL/DUNGEON/{dungeon->DungeonMap:D4}/{dungeon->DungeonMapVariant:D3}";
+                if (Directory.Exists((NeptuniaModder.LooseFiles + "/game2" + newPath).ToLower()))
+                    path = newPath;
+            }
             _sprintfHelper(path, stringDest, size);
             *someValue = 2;
             return true;
         }
 
-        //55 8B EC 8B 45 ?? FF 75 ?? 85 C0 
+        //55 8B EC 8B 45 ?? FF 75 ?? 0F B7 40 ?? 50 68 ?? ?? ?? ?? FF 75 ?? FF 75 ?? FF 15 ?? ?? ?? ?? 8B 45 ?? 83 C4 14 C7 00 02 00 00 00 B0 01 5D C3 ?? 
         [Function(CallingConventions.Cdecl)]
         public delegate bool OnGetMapEffektPath(Dungeon* dungeon,nint fileName,int* someValue, byte* stringDest,int size);
         public static bool GetMapEffektPath(Dungeon* dungeon,nint fileName, int* someValue, byte* stringDest, int size)
         {
 
-            string path = $"/MODEL/DUNGEON/MAP/{dungeon->DungeonMap:D4}/TEXTURE/{Marshal.PtrToStringUTF8(fileName)}";
+            string path = $"/MODEL/DUNGEON/MAP/{dungeon->DungeonMap:D4}/EFFECT/{Marshal.PtrToStringUTF8(fileName)}";
+            if (dungeon->HERB[0] != 702 && dungeon->HERB[0] != 0)
+            {
+                string newPath = $"/MODS/{dungeon->HERB[0]}/MODEL/DUNGEON/{dungeon->DungeonMap:D4}/EFFECT/{Marshal.PtrToStringUTF8(fileName)}";
+                if (File.Exists((NeptuniaModder.LooseFiles + "/game2" + newPath).ToLower()))
+                    path = newPath;
+            }
             _sprintfHelper(path, stringDest, size);
             *someValue = 2;
             return true;
@@ -151,14 +178,14 @@ namespace Neptunia_Modding.Modding.Hooks
             nuint offset = 0; 
             nuint[] offsets;
             if (FunctionScanner.FindFunction("Not Sure", "55 8B EC 81 EC D0 00 00 00 A1 ?? ?? ?? ?? 33 C5 89 45 ?? 53", out offset))
-                _smth = hooks.CreateFunction<DunnoButImportant>((int)(Mod.ModuleBase + offset));
+                _smth = hooks.CreateFunction<DunnoButImportant>((int)(NeptuniaModder.ModuleBase + offset));
             if (FunctionScanner.FindFunction("Reduce Scout Days", "55 8B EC 8B 0D ?? ?? ?? ?? 56 69 81 ?? ?? ?? ?? 3C 20 00 00", out offset))
             {
                 string[] asm = {
                 "use32",
                 "ret",
                 };
-                _asmHooks.Add(hooks.CreateAsmHook(asm, (long)(Mod.ModuleBase + offset), AsmHookBehaviour.DoNotExecuteOriginal).Activate());
+                _asmHooks.Add(hooks.CreateAsmHook(asm, (long)(NeptuniaModder.ModuleBase + offset), AsmHookBehaviour.DoNotExecuteOriginal).Activate());
             }
             if (FunctionScanner.FindFunction("Add Dungeon", "55 8B EC 53 8B 5D ?? 85 DB 75 ?? 32 C0 5B 5D C3 A1", out offset))
             {
@@ -180,7 +207,7 @@ namespace Neptunia_Modding.Modding.Hooks
                 "pop ebp",
                 "ret",
                 };
-                _asmHooks.Add(hooks.CreateAsmHook(asm, (int)(Mod.ModuleBase + offset), AsmHookBehaviour.DoNotExecuteOriginal).Activate());
+                _asmHooks.Add(hooks.CreateAsmHook(asm, (int)(NeptuniaModder.ModuleBase + offset), AsmHookBehaviour.DoNotExecuteOriginal).Activate());
             }
             if (FunctionScanner.FindFunction("Count Dungeons On Map", "55 8B EC 8B 0D ?? ?? ?? ?? 33 D2 57 69 81 ?? ?? ?? ?? 3C 20 00 00", out offset))
             {
@@ -201,7 +228,7 @@ namespace Neptunia_Modding.Modding.Hooks
                 "pop ebp",
                 "ret",
                 };
-                _asmHooks.Add(hooks.CreateAsmHook(asm, (int)(Mod.ModuleBase + offset), AsmHookBehaviour.DoNotExecuteOriginal).Activate());
+                _asmHooks.Add(hooks.CreateAsmHook(asm, (int)(NeptuniaModder.ModuleBase + offset), AsmHookBehaviour.DoNotExecuteOriginal).Activate());
             }
             if (FunctionScanner.FindFunction("Get Dungeon Or Create New", "55 8B EC 51 8B 15 ?? ?? ?? ?? 53 66 8B 5D", out offset))
             {
@@ -222,7 +249,7 @@ namespace Neptunia_Modding.Modding.Hooks
                 "pop ebp",
                 "ret",
                 };
-                _asmHooks.Add(hooks.CreateAsmHook(asm, (int)(Mod.ModuleBase + offset), AsmHookBehaviour.DoNotExecuteOriginal).Activate());
+                _asmHooks.Add(hooks.CreateAsmHook(asm, (int)(NeptuniaModder.ModuleBase + offset), AsmHookBehaviour.DoNotExecuteOriginal).Activate());
             }
             if (FunctionScanner.FindFunction("Place Dungeon On Map", "55 8B EC 83 EC 08 53 8B 1D ?? ?? ?? ?? 56 69 83 ?? ?? ?? ?? 3C 20 00 00", out offset))
             {
@@ -245,7 +272,7 @@ namespace Neptunia_Modding.Modding.Hooks
                 "pop ebp",
                 "ret",
                 };
-                _asmHooks.Add(hooks.CreateAsmHook(asm, (int)(Mod.ModuleBase + offset), AsmHookBehaviour.ExecuteFirst).Activate());
+                _asmHooks.Add(hooks.CreateAsmHook(asm, (int)(NeptuniaModder.ModuleBase + offset), AsmHookBehaviour.ExecuteFirst).Activate());
             }
             if (FunctionScanner.FindFunction("Reset Entities", "A1 ?? ?? ?? ?? 8D 88 ?? ?? ?? ?? 05 30 03 01 00 3B C1 73 ?? 56", out offset))
             {
@@ -285,7 +312,7 @@ namespace Neptunia_Modding.Modding.Hooks
                 "pop ebp",
                 "ret",
                 };
-                _asmHooks.Add(hooks.CreateAsmHook(asm, (int)(Mod.ModuleBase + offset), AsmHookBehaviour.DoNotExecuteOriginal).Activate());
+                _asmHooks.Add(hooks.CreateAsmHook(asm, (int)(NeptuniaModder.ModuleBase + offset), AsmHookBehaviour.DoNotExecuteOriginal).Activate());
             }
             if (FunctionScanner.FindFunction("Dungeon Array Init", "C7 81 ?? ?? ?? ?? 00 00 00 00 E8 ?? ?? ?? ?? 8B 4D", out offset))
             {
@@ -297,18 +324,22 @@ namespace Neptunia_Modding.Modding.Hooks
                 "popfd",
                 "popad",
                 };
-                _asmHooks.Add(hooks.CreateAsmHook(asm, (int)(Mod.ModuleBase + offset), AsmHookBehaviour.ExecuteAfter).Activate());
+                _asmHooks.Add(hooks.CreateAsmHook(asm, (int)(NeptuniaModder.ModuleBase + offset), AsmHookBehaviour.ExecuteAfter).Activate());
             }
-            if (FunctionScanner.FindFunction("Get Map Texture", "55 8B EC 8B 45 ?? FF 75 ?? 85 C0", out offset))
+            if (FunctionScanner.FindFunction("Get Map Path", "55 8B EC 8B 4D ?? 0F B7 41", out offset))
             {
-                _iHooks.Add(hooks.CreateHook<OnGetMapTexturePath>(GetMapTexturePath, (long)(Mod.ModuleBase + offset)).Activate());
+                _iHooks.Add(hooks.CreateHook<OnGetMapPath>(GetMapPath, (long)(NeptuniaModder.ModuleBase + offset)).Activate());
             }
-            if (FunctionScanner.FindFunctions("Get Effekts Texture", "55 8B EC 8B 45 ?? FF 75 ?? 85 C0", out offsets))
+            if (FunctionScanner.FindFunction("Get Map Texture Path", "55 8B EC 8B 45 ?? FF 75 ?? 85 C0", out offset))
+            {
+                _iHooks.Add(hooks.CreateHook<OnGetMapTexturePath>(GetMapTexturePath, (long)(NeptuniaModder.ModuleBase + offset)).Activate());
+            }
+            if (FunctionScanner.FindFunctions("Get Map Effekts Path", "55 8B EC 8B 45 ?? FF 75 ?? 0F B7 40 ?? 50 68 ?? ?? ?? ?? FF 75 ?? FF 75 ?? FF 15 ?? ?? ?? ?? 8B 45 ?? 83 C4 14 C7 00 02 00 00 00 B0 01 5D C3 ??", out offsets))
             {
                 foreach (var off in offsets)
                 {
                     //overrides "/MODEL/DUNGEON/MAP/%04u/OBJECT/mobj%02u.ism2" pretty sure this is unused
-                    _iHooks.Add(hooks.CreateHook<OnGetMapTexturePath>(GetMapTexturePath, (long)(Mod.ModuleBase + off)).Activate());
+                    _iHooks.Add(hooks.CreateHook<OnGetMapEffektPath>(GetMapEffektPath, (long)(NeptuniaModder.ModuleBase + off)).Activate());
                 }
             }
 

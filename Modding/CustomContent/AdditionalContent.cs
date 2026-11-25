@@ -11,52 +11,63 @@ namespace Neptunia_Modding.Modding.CustomContent
         Dungeon = 1
     }
 
-    public partial class AdditionalContent
+    internal partial class AdditionalContent
     {
-        static string Manifest = "info.json";
-        static List<AdditionalContent> Content = new();
+        const string ContentInfo = "info.json";
+
+        protected List<AdditionalContent> Content = new();
+
+        protected int ModID = 0;
+        protected string BaseDirectory = "";
+
         public delegate void LoadFiles();
 
-        public static bool CreateAdditionalContent(string path,out AdditionalContent content)
+        internal static List<AdditionalContent> CreateAdditionalContent(ModInfo mod,string path)
         {
-            content = null;
-            if (path[(path.Length-Manifest.Length)..] != Manifest)
-                return false;
-            string type = "";
-            using (StreamReader file = File.OpenText(path))
-            using (JsonTextReader reader = new JsonTextReader(file))
-            {
-                var o2 = (JObject)JToken.ReadFrom(reader);
-                if (o2.ContainsKey("Type"))
-                    type = o2["Type"]!.ToString();
-            }
-            if (!Enum.IsDefined(typeof(AdditionalContentTypes), type))
-                return false;
-
-            var defType = Enum.Parse<AdditionalContentTypes>(type);
-            switch (defType)
-            {
-                case AdditionalContentTypes.Dungeon:
-                    content = new CustomDungeon(path[..(path.Length - Manifest.Length)]);
-                    Dungeons.OnLoadDungeons += content.LoadMod;
-                    break;
-            }
-
-            return true;
-        }
-
-        public static void FindMods()
-        {
-            string[] files = Directory.GetFiles(Mod.ModFolder + "/CustomContent",Manifest,SearchOption.AllDirectories);
-            foreach (string file in files)
+            List<AdditionalContent> result = new();
+            string[] foundContent = Directory.GetFiles(mod.BaseDirectory, ContentInfo, SearchOption.AllDirectories);
+            
+            List<string> contentDirectories = new();
+            foreach (string file in foundContent)
             {
                 Console.WriteLine($"Found new content at: {file}");
-                if (CreateAdditionalContent(file, out AdditionalContent content))
-                    Content.Add(content);
+                contentDirectories.Add(Path.GetDirectoryName(file)!);
             }
+
+            foreach (string contentDirectory in contentDirectories)
+            {
+                
+                string type = "";
+                using (StreamReader file = File.OpenText(Path.Combine(contentDirectory, ContentInfo)))
+                using (JsonTextReader reader = new JsonTextReader(file))
+                {
+                    var o2 = (JObject)JToken.ReadFrom(reader);
+                    if (o2.ContainsKey("Type"))
+                        type = o2["Type"]!.ToString();
+                }
+                if (!Enum.IsDefined(typeof(AdditionalContentTypes), type))
+                    continue;
+
+                var defType = Enum.Parse<AdditionalContentTypes>(type);
+                AdditionalContent content = null;
+                switch (defType)
+                {
+                    case AdditionalContentTypes.Dungeon:
+                        content = new CustomDungeon(mod, contentDirectory);
+                        Dungeons.OnLoadDungeons += content.LoadMod;
+                        break;
+                }
+                if(content != null)
+                    result.Add(content);
+            }
+
+            return result;
         }
 
-        protected AdditionalContent() { }
+        protected AdditionalContent(ModInfo modInfo,string contentBaseDirectory) { 
+            ModID = modInfo.ModID;
+            BaseDirectory = contentBaseDirectory;
+        }
 
         protected virtual void LoadMod() { }
     }

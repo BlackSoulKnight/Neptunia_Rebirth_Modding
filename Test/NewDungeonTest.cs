@@ -29,12 +29,5 @@ namespace Neptunia_Modding.Test
             return TestDungeon;
 
         }
-
-        public static void Test_Load_Dungeon()
-        {
-            var CustomDungeon = new CustomDungeon("C:\\Users\\BSK\\source\\repos\\Neptunia_Modding\\Examples\\Dungeon");
-            //CustomDungeon.LoadFiles();
-        }
-
     }
 }
