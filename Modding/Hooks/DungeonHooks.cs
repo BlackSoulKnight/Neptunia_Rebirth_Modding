@@ -6,14 +6,26 @@ using Reloaded.Hooks.Definitions;
 using Reloaded.Hooks.Definitions.Enums;
 using Reloaded.Hooks.Definitions.X86;
 using Reloaded.Memory;
+using System.Runtime.InteropServices;
+using System.Security.Permissions;
+using System.Text;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Neptunia_Modding.Modding.Hooks
 {
     public unsafe class DungeonHooks
     {
-        public static List<IAsmHook> _asmHooks = new();
+        public static void _sprintfHelper(string source,byte* dest,int size)
+        {
+            var data = Encoding.UTF8.GetBytes(source);
+            int i = 0;
+            for (; i < size && i < data.Length; i++)
+                dest[i] = data[i];
+            for (; i < size; i++)
+                dest[i] = 0;
+        }
 
+        public static List<IAsmHook> _asmHooks = new();
         public static IReverseWrapper<OnResetEntities> _onResetEntities;
         public static IReverseWrapper<OnValidateDungeon> _onValidateDungeon;
         public static IReverseWrapper<OnGetDungeonOrCreateNew> _onGetDungeonOrCreateNew;
@@ -23,7 +35,9 @@ namespace Neptunia_Modding.Modding.Hooks
         public static IReverseWrapper<OnReduceScoutDays> _onReduceScoutDays;
         public static IReverseWrapper<OnMemDataCoreSetupFinish> _onDungeonDBInit;
 
-
+        public static IHook<OnGetMapTexturePath> _onGetMapTexturePath;   
+        public static IHook<OnGetMapTexturePath> _onGetMapEffektPath;
+        public static List<IHook> _iHooks = new();
         public static IFunction<DunnoButImportant> _smth;
 
         [Function(CallingConventions.Stdcall)]
@@ -82,18 +96,18 @@ namespace Neptunia_Modding.Modding.Hooks
             return DungeonSaveManager.PlaceDungeonOnMap(subworld,par2, maxCount);
         }
 
-        [Function(CallingConventions.Stdcall)]
-        public delegate byte OnReduceScoutDays(uint Days);
         //55 8B EC 8B 0D ?? ?? ?? ?? 56 69 81 ?? ?? ?? ?? 3C 20 00 00
         //Unused
+        [Function(CallingConventions.Stdcall)]
+        public delegate byte OnReduceScoutDays(uint Days);
         public static byte ReduceScoutDays(uint Days)
         {
             return 1;
         }
 
+        //C7 81 ?? ?? ?? ?? 00 00 00 00 E8 ?? ?? ?? ?? 8B 4D (+BFEB3)
         [Function(CallingConventions.Stdcall)]
         public delegate void OnMemDataCoreSetupFinish();
-        //C7 81 ?? ?? ?? ?? 00 00 00 00 E8 ?? ?? ?? ?? 8B 4D (+BFEB3)
         public static void AfterMemDataCoreSetup()
         {
             Dungeons.DungeonInit();
@@ -101,12 +115,41 @@ namespace Neptunia_Modding.Modding.Hooks
         }
 
         //A1 ?? ?? ?? ?? 68 B8 4B 06 00 Reset Dungeon Saves
+        // /MODEL/DUNGEON/MAP/0200/TEXTURE/m02_groundA_c.tid
+        
+
+        //55 8B EC 8B 45 ?? FF 75 ?? 85 C0 
+        [Function(CallingConventions.Cdecl)]
+        public delegate bool OnGetMapTexturePath(Dungeon* dungeon,nint fileName,int* someValue, byte* stringDest,int size);
+        public static bool GetMapTexturePath(Dungeon* dungeon,nint fileName, int* someValue, byte* stringDest, int size)
+        {
+
+            string path = $"/MODEL/DUNGEON/MAP/{dungeon->DungeonMap:D4}/TEXTURE/{Marshal.PtrToStringUTF8(fileName)}";
+            _sprintfHelper(path, stringDest, size);
+            *someValue = 2;
+            return true;
+        }
+
+        //55 8B EC 8B 45 ?? FF 75 ?? 85 C0 
+        [Function(CallingConventions.Cdecl)]
+        public delegate bool OnGetMapEffektPath(Dungeon* dungeon,nint fileName,int* someValue, byte* stringDest,int size);
+        public static bool GetMapEffektPath(Dungeon* dungeon,nint fileName, int* someValue, byte* stringDest, int size)
+        {
+
+            string path = $"/MODEL/DUNGEON/MAP/{dungeon->DungeonMap:D4}/TEXTURE/{Marshal.PtrToStringUTF8(fileName)}";
+            _sprintfHelper(path, stringDest, size);
+            *someValue = 2;
+            return true;
+        }
+
+
 
 
 
         public static void SetupHooks(IReloadedHooks hooks)
         {
-            nuint offset = 0;
+            nuint offset = 0; 
+            nuint[] offsets;
             if (FunctionScanner.FindFunction("Not Sure", "55 8B EC 81 EC D0 00 00 00 A1 ?? ?? ?? ?? 33 C5 89 45 ?? 53", out offset))
                 _smth = hooks.CreateFunction<DunnoButImportant>((int)(Mod.ModuleBase + offset));
             if (FunctionScanner.FindFunction("Reduce Scout Days", "55 8B EC 8B 0D ?? ?? ?? ?? 56 69 81 ?? ?? ?? ?? 3C 20 00 00", out offset))
@@ -115,7 +158,7 @@ namespace Neptunia_Modding.Modding.Hooks
                 "use32",
                 "ret",
                 };
-                _asmHooks.Add(hooks.CreateAsmHook(asm, (int)(Mod.ModuleBase + offset), AsmHookBehaviour.DoNotExecuteOriginal).Activate());
+                _asmHooks.Add(hooks.CreateAsmHook(asm, (long)(Mod.ModuleBase + offset), AsmHookBehaviour.DoNotExecuteOriginal).Activate());
             }
             if (FunctionScanner.FindFunction("Add Dungeon", "55 8B EC 53 8B 5D ?? 85 DB 75 ?? 32 C0 5B 5D C3 A1", out offset))
             {
@@ -256,6 +299,19 @@ namespace Neptunia_Modding.Modding.Hooks
                 };
                 _asmHooks.Add(hooks.CreateAsmHook(asm, (int)(Mod.ModuleBase + offset), AsmHookBehaviour.ExecuteAfter).Activate());
             }
+            if (FunctionScanner.FindFunction("Get Map Texture", "55 8B EC 8B 45 ?? FF 75 ?? 85 C0", out offset))
+            {
+                _iHooks.Add(hooks.CreateHook<OnGetMapTexturePath>(GetMapTexturePath, (long)(Mod.ModuleBase + offset)).Activate());
+            }
+            if (FunctionScanner.FindFunctions("Get Effekts Texture", "55 8B EC 8B 45 ?? FF 75 ?? 85 C0", out offsets))
+            {
+                foreach (var off in offsets)
+                {
+                    //overrides "/MODEL/DUNGEON/MAP/%04u/OBJECT/mobj%02u.ism2" pretty sure this is unused
+                    _iHooks.Add(hooks.CreateHook<OnGetMapTexturePath>(GetMapTexturePath, (long)(Mod.ModuleBase + off)).Activate());
+                }
+            }
+
         }
 
     }
