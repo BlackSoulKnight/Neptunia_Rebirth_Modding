@@ -20,8 +20,8 @@ namespace Neptunia_Modding.Modding.CustomContent
         const string ChangeGather = "/Gather/ChangeGather.json";
         const string ChangeDungeonGather = "/Gather/ChangeDungeonGather.json";
         const string MapResourcePath = "/Resources/map";
-        int _dungeonMap = 0;
-        string MapResourceDest => $"/game2/mods/{ModID}/model/dungeon/{_dungeonMap:D4}";
+        int _dungeonID = 0;
+        string MapResourceDest => $"/game2/mods/{ModID}/model/dungeon/{_dungeonID:D4}";
         const int StringSize = 32;
 
 
@@ -182,7 +182,7 @@ namespace Neptunia_Modding.Modding.CustomContent
             if (File.Exists(BaseDirectory + ChangeDungeonGather))
                 newDungeon->ChangeDungeonGather = LoadGatherSpots(BaseDirectory + ChangeDungeonGather);
 
-            _dungeonMap = newDungeon->DungeonMap;
+            _dungeonID = newDungeon->DungeonMap;
             HERB herb = new HERB();
             herb[0] = (short)ModID;
             newDungeon->HERB = herb;

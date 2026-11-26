@@ -11,3 +11,5 @@ Missing a lot of Work
 
 - Dungeons limit removed
 - Dungeon Savefile saved to external file
+- Creating new dungeon information like enemy groups and loot table for gather points
+- Loading model and textures from other rebirth games
