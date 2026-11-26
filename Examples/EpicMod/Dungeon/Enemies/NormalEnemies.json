@@ -20,7 +20,7 @@
     "RespawnTime": 30,
     "EncounterInfo": [
       {
-        "EnemyID": 101,
+        "EnemyID": 126,
         "MinQuantity": 1,
         "MaxQuantity": 1
       },

@@ -3,8 +3,8 @@
   "Dungeon": {
     "DungeonID": 1,
     "BGM": 8,
-    "DungeonMap": 200,
-    "DungeonMapVariant": 4,
+    "DungeonMap": 300,
+    "DungeonMapVariant": 1,
     "ScoutDays":1,
     "ScoutDuration":5,
     "ScoutTimeout":1,
